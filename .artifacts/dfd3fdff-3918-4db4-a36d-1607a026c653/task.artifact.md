@@ -1,0 +1,4 @@
+- [x] Add `androidx.appcompat` dependency to `app/build.gradle.kts`
+- [x] Sync Gradle
+- [x] Refactor `MainActivity.kt` to fix warnings and verify errors are resolved
+- [x] Verify build and code analysis
