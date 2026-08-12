@@ -1,4 +1,8 @@
-- [x] Add `androidx.appcompat` dependency to `app/build.gradle.kts`
-- [x] Sync Gradle
-- [x] Refactor `MainActivity.kt` to fix warnings and verify errors are resolved
-- [x] Verify build and code analysis
+- [x] Clean Slate: Force-stop app and clear Logcat
+- [x] Case 1: First Launch (Capture onCreate -> onResume)
+- [x] Case 2: Press HOME button (Capture onPause -> onStop)
+- [x] Case 3: Reopen from Recent Apps (Capture onRestart -> onResume)
+- [x] Case 4: Press BACK button (Capture onPause -> onDestroy)
+- [x] Case 5: Press Exit button (Capture in-app finish)
+- [x] Case 6: Color Persistence (Change color, close, and reopen)
+- [/] Create detailed Lifecycle Walkthrough

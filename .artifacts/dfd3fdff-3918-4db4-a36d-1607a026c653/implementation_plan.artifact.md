@@ -1,31 +1,30 @@
-# Implementation Plan - Fix Errors in MainActivity.kt
+# Implementation Plan - Lifecycle and Persistence Verification
 
-The `MainActivity.kt` file currently has multiple "Unresolved reference" errors because the `androidx.appcompat:appcompat` dependency is missing from the project's build configuration, even though the code relies on `AppCompatActivity`.
+I will execute a sequence of 6 test cases to demonstrate the Android Lifecycle states and data persistence in the app. Each case will be documented with screenshots and/or logcat traces.
 
-## User Review Required
+## Verification Scenarios
 
-> [!IMPORTANT]
-> I will be adding the `androidx.appcompat` dependency to your project. This is necessary because your `MainActivity` inherits from `AppCompatActivity`, which is part of that library.
+1.  **First Launch**: Start the app and capture the initial `onCreate` -> `onStart` -> `onResume` sequence.
+2.  **Home Button**: Press the Home button to trigger `onPause` -> `onStop`.
+3.  **Recent Apps**: Reopen the app from the "Recents" menu to trigger `onRestart` -> `onStart` -> `onResume`.
+4.  **Back Button**: Press the Back button to trigger `onPause` -> `onStop` -> `onDestroy`.
+5.  **Exit Button**: Use the in-app "Exit" button to verify graceful termination.
+6.  **Color Persistence**:
+    *   Launch app.
+    *   Change background color (e.g., to Green).
+    *   Enter text.
+    *   Close the app.
+    *   Reopen to verify that the color and text are restored from `SharedPreferences`.
 
-## Proposed Changes
+## Proposed Actions
 
-### Build Configuration
-
-#### [MODIFY] [app/build.gradle.kts](file:///C:/ActivityLifecycleGitCollaboration/app/build.gradle.kts)
-- Add `implementation(libs.androidx.appcompat)` to the dependencies block.
-
-### Source Code
-
-#### [MODIFY] [MainActivity.kt](file:///C:/ActivityLifecycleGitCollaboration/app/src/main/java/com/example/activitylifecyclegitcollaboration/MainActivity.kt)
-- Fix minor warnings:
-    - Use `sharedPreferences.edit { ... }` KTX extension if possible, or just address the warning.
-    - Address string concatenation warnings in `setText`.
+- Use `adb shell am start` to launch the app.
+- Use `adb shell input keyevent` for Home, Back, and Recents navigation.
+- Use `adb shell input tap` for the "Exit" and Color buttons.
+- Capture screenshots for every state change.
+- Collect logcat snapshots to provide "Lifecycle Traces" as requested.
 
 ## Verification Plan
 
-### Automated Tests
-- Run `analyze_file` on `MainActivity.kt` after the changes to ensure all "Unresolved reference" errors are gone.
-- Run `gradle_build app:assembleDebug` to verify the project compiles.
-
 ### Manual Verification
-- The user can verify that the IDE no longer shows red highlights in `MainActivity.kt`.
+- All results will be presented in a new **walkthrough.artifact.md** with a clear table or sequence of images corresponding to each of the 6 cases.
